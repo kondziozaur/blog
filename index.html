@@ -85,16 +85,16 @@
 <li>Export all users as csv file using any tool that can do it, e.g. <a href="http://directory.apache.org/studio/" target="_blank" rel="external">Apache Directory Studio</a> (list all attributes you want to fetch, for sure provide the accountId). Save in <code>people-ldap-export.csv</code></li>
 <li>Have the whitelist of <em>accountIds</em> as another csv file, <code>accountWhiteList.csv</code></li>
 <li><p>Create a whitelist csv file with your users:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">aa xargs -I &#123;&#125; grep <span class="string">"\"&#123;&#125;\""</span> people-ldap-export.csv &lt; accountWhiteList.csv &gt; people-ldap-export-whitelist.csv</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">xargs -I &#123;&#125; grep <span class="string">"\"&#123;&#125;\""</span> people-ldap-export.csv &lt; accountWhiteList.csv &gt; people-ldap-export-whitelist.csv</div></pre></td></tr></table></figure>
 </li>
 <li><p>Now that you have full list and whitelist, create a blacklist:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><div class="line">diff people-ldap-<span class="keyword">export</span>.csv people-ldap-<span class="keyword">export</span>-whitelist.csv | grep <span class="string">'&lt;'</span> | cut -c3- &gt; people-ldap-<span class="keyword">export</span>-blacklist.csv</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">diff people-ldap-export.csv people-ldap-export-whitelist.csv | grep <span class="string">'&lt;'</span> | cut -c3- &gt; people-ldap-export-blacklist.csv</div></pre></td></tr></table></figure>
 </li>
 <li><p>And create a file for ldapdelete that has only list of blacklisted <em>dn</em>. (in my csv the dn was first field in quotes, hence I extract first string between <code>&quot;</code> characters.</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><div class="line">sed <span class="string">'s/^"\([^"]*\).*/\1/'</span> &lt; people-ldap-<span class="keyword">export</span>-blacklist.csv &gt; people-ldap-<span class="keyword">export</span>-blacklist-dn.csv</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">sed <span class="string">'s/^"\([^"]*\).*/\1/'</span> &lt; people-ldap-export-blacklist.csv &gt; people-ldap-export-blacklist-dn.csv</div></pre></td></tr></table></figure>
 </li>
 <li><p>Now just delete the blacklisted dns:</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><div class="line">ldapdelete -h myhost<span class="selector-class">.company</span><span class="selector-class">.com</span> -D <span class="string">"cn=Directory Manager"</span> -w password -<span class="selector-tag">p</span> <span class="number">389</span>  &lt; people-ldap-export-blacklist-dn.csv</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">ldapdelete -h myhost.company.com -D <span class="string">"cn=Directory Manager"</span> -w password -p 389  &lt; people-ldap-export-blacklist-dn.csv</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>One importtant thing to consider: New user with new accountId can be created in your repo anytime, and you want to make sure he won’t be listed in the blacklist. Just make your user export first, then make sure that your accountId whitelist is up to date (was generated after you made the export). This way new users won’t be processed by the above steps at all, and won’t get deleted.</p>
@@ -112,6 +112,13 @@
   <div class="article-footer">
     <div class="article-meta pull-left">
 
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/blog/categories/identity-management/">identity management</a>
+    </span>
     
 
     
