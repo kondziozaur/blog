@@ -59,7 +59,7 @@
 
   
     
-    <h3 class="article-title"><a href="/2016/09/25/processing-ldap-users-using-shell/"><span>processing ldap users using shell</span></a></h3>
+    <h3 class="article-title"><a href="/2016/09/25/processing-ldap-users-using-shell/"><span>Delete LDAP users that do not match an attribute, using whitelist</span></a></h3>
     
   
 
@@ -79,8 +79,7 @@
   <div class="article-content">
     <div class="entry">
       
-        <p>Delete LDAP users that do not match an attribute. </p>
-<p>So you have a messy LDAP directory with tons of users registered that don’t really belong to it. Each user has an <em>accountId</em>, and now you got your <em>whitelist of accountIds</em> that need to stay, and all other users should be removed from the directory.</p>
+        <p>So you have a messy LDAP directory with tens of thousands users registered that don’t really belong to it. Each user has an <em>accountId</em>, and now you got your <em>whitelist of accountIds</em> that need to stay, and all other users should be removed from the directory.</p>
 <p>There is no direct ldapdelete way of doing it - you need to provide <em>dn</em>, not an attribute that has no match in your whitelist. So, how to proceed? Probably tens of solutions possible, but for my requirements this was the easiest:</p>
 <ol>
 <li>Export all users as csv file using any tool that can do it, e.g. <a href="http://directory.apache.org/studio/" target="_blank" rel="external">Apache Directory Studio</a> (list all attributes you want to fetch, for sure provide the accountId). Save in <code>people-ldap-export.csv</code></li>
@@ -98,6 +97,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ldapdelete -h myhost.company.com -D &quot;cn=Directory Manager&quot; -w password -p 389  &lt; people-ldap-export-blacklist-dn.csv</div></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>One importtant thing to consider: New user with new accountId can be created in your repo anytime, and you want to make sure he won’t be listed in the blacklist. Just make your user export first, then make sure that your accountId whitelist is up to date (was generated after you made the export). This way new users won’t be processed by the above steps at all, and won’t get deleted.</p>
 <p>Refs:</p>
 <ul>
 <li><a href="http://unix.stackexchange.com/questions/110645/select-lines-from-text-file-which-have-ids-listed-in-another-file" target="_blank" rel="external">http://unix.stackexchange.com/questions/110645/select-lines-from-text-file-which-have-ids-listed-in-another-file</a></li>
@@ -119,7 +119,7 @@
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/tags/ApacheDirectoryStudio-csv-ldap-linux-shell-shell-is-my-spreadsheet-text-files-scripting-identity-management/">ApacheDirectoryStudio, csv, ldap, linux, shell, shell_is_my_spreadsheet, text_files, scripting, identity_management</a>
+        <a href="/tags/Apache-Directory-Studio/">Apache Directory Studio</a><a href="/tags/csv/">csv</a><a href="/tags/ldap/">ldap</a><a href="/tags/linux/">linux</a><a href="/tags/shell/">shell</a><a href="/tags/shell-is-my-spreadsheet/">shell is my spreadsheet</a><a href="/tags/text-files/">text files</a><a href="/tags/scripting/">scripting</a><a href="/tags/identity-management/">identity management</a>
     </span>
     
 
