@@ -85,7 +85,7 @@
 <li>Export all users as csv file using any tool that can do it, e.g. <a href="http://directory.apache.org/studio/" target="_blank" rel="external">Apache Directory Studio</a> (list all attributes you want to fetch, for sure provide the accountId). Save in <code>people-ldap-export.csv</code></li>
 <li>Have the whitelist of <em>accountIds</em> as another csv file, <code>accountWhiteList.csv</code></li>
 <li><p>Create a whitelist csv file with your users:</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">xargs -I &#123;&#125; grep <span class="string">"\"&#123;&#125;\""</span> people-ldap-export.csv &lt; accountWhiteList.csv &gt; people-ldap-export-whitelist.csv</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">aa xargs -I &#123;&#125; grep <span class="string">"\"&#123;&#125;\""</span> people-ldap-export.csv &lt; accountWhiteList.csv &gt; people-ldap-export-whitelist.csv</div></pre></td></tr></table></figure>
 </li>
 <li><p>Now that you have full list and whitelist, create a blacklist:</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><div class="line">diff people-ldap-<span class="keyword">export</span>.csv people-ldap-<span class="keyword">export</span>-whitelist.csv | grep <span class="string">'&lt;'</span> | cut -c3- &gt; people-ldap-<span class="keyword">export</span>-blacklist.csv</div></pre></td></tr></table></figure>
