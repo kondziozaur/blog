@@ -50,11 +50,11 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/blog/">主页</a></li>
+        <li><a href="/blog/">Home</a></li>
       
-        <li><a href="/blog/archives">归档</a></li>
+        <li><a href="/blog/archives">Archives</a></li>
       
-        <li><a href="/blog/about">关于</a></li>
+        <li><a href="/blog/about">About</a></li>
       
     </ul>
   </nav>
@@ -111,7 +111,7 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">ldapdelete -h myhost.company.com -D <span class="string">"cn=Directory Manager"</span> -w password -p 389  &lt; people-ldap-export-blacklist-dn.csv</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>One importtant thing to consider: New user with new accountId can be created in your repo anytime, and you want to make sure he won’t be listed in the blacklist. Just make your user export first, then make sure that your accountId whitelist is up to date (was generated after you made the export). This way new users won’t be processed by the above steps at all, and won’t get deleted. And have your backups ready ;)</p>
+<p>One importtant thing to consider: New user with new <em>accountId</em> can be created in your repo anytime, and you want to make sure he won’t be listed in the blacklist. Just make your user export first, then make sure that your <em>accountId whitelist</em> is up to date (was generated after you made the export). This way new users won’t be processed by the above steps at all, and won’t get deleted. And have your backups ready ;)</p>
 <p>Refs:</p>
 <ul>
 <li><a href="http://unix.stackexchange.com/questions/110645/select-lines-from-text-file-which-have-ids-listed-in-another-file" target="_blank" rel="external">http://unix.stackexchange.com/questions/110645/select-lines-from-text-file-which-have-ids-listed-in-another-file</a></li>
