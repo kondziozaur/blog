@@ -84,7 +84,7 @@
         <p>So you have a messy LDAP directory with tens of thousands users registered that don’t really belong to it. Each user has an <em>accountId</em>, and now you got your <em>whitelist of accountIds</em> that need to stay, and all other users should be removed from the directory.</p>
 <p>There is no direct ldapdelete way of doing it - you need to provide <em>dn</em>, not an attribute that has no match in your whitelist. So, how to proceed? Probably tens of solutions possible, but for my requirements this was the easiest:</p>
 <ol>
-<li><p>Export all users as csv file using any tool that can do it, e.g. <a href="http://directory.apache.org/studio/" target="_blank" rel="external">Apache Directory Studio</a> (list all attributes you want to fetch, for sure provide the accountId).<br>Save in <code>people-ldap-export.csv</code>.<br>Make sure the file contains only records (no csv header or ldap tree branches).</p>
+<li><p>Export all users as csv file using any tool that can do it, e.g. <a href="http://directory.apache.org/studio/" target="_blank" rel="external">Apache Directory Studio</a> (list all attributes you want to fetch, for sure provide the <em>dn</em> and <em>accountId</em>).<br>Save in <code>people-ldap-export.csv</code>.<br>Make sure the file contains only records (no csv header or ldap tree branches).</p>
 </li>
 <li><p>Have the whitelist of <em>accountIds</em> as another csv file, <code>accountWhiteList.csv</code></p>
 </li>
