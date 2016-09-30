@@ -45,11 +45,11 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/blog/">主页</a></li>
+        <li><a href="/blog/">Home</a></li>
       
-        <li><a href="/blog/archives">归档</a></li>
+        <li><a href="/blog/archives">Archives</a></li>
       
-        <li><a href="/blog/about">关于</a></li>
+        <li><a href="/blog/about">About</a></li>
       
     </ul>
   </nav>
@@ -92,7 +92,7 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --summary</div><div class="line"></div><div class="line">  ID                                                                 Type    Status</div><div class="line">  -------------------------------------------------------------------------------------------------</div><div class="line">  BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa                    Backup  Recurring</div><div class="line">  BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa-20161001023000000  Backup  Waiting on start time</div></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --info BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line"></div><div class="line">  Task Details</div><div class="line">  -------------------------------------------------------------------------</div><div class="line">  ID                        BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line">  Type                      Backup</div><div class="line">  Status                    Recurring</div><div class="line">  Scheduled Start Time      30 2 1,16 * *</div><div class="line">  Dependencies              None</div><div class="line">  Failed Dependency Action  None</div><div class="line">  Email Upon Completion     your@mail.com</div><div class="line">  Email Upon Error          your@mail.com</div><div class="line"></div><div class="line">  Backup Options</div><div class="line">  --------------------------------------------------</div><div class="line">  Backup All        <span class="literal">true</span></div><div class="line">  Backup Directory  /your_backups_path</div><div class="line">  Compress          <span class="literal">true</span></div></pre></td></tr></table></figure>
 <p>Cancel scheduled backup</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --info BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --cancel BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div></pre></td></tr></table></figure>
 <h3 id="Restore-from-backup"><a href="#Restore-from-backup" class="headerlink" title="Restore from backup"></a>Restore from backup</h3><p>List backups of <em>userRoot</em> backend in <code>/your_backups_path</code> </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --listBackups</div></pre></td></tr></table></figure>
 <p>Dry run a backup<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --dry-run</div></pre></td></tr></table></figure></p>
@@ -135,7 +135,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="2016/09/29/opendj-backup-cheat-sheet/#comment">评论</a>
+          <a href="2016/09/29/opendj-backup-cheat-sheet/#comment">Comments</a>
         </span>
       </span>
     </div>
@@ -235,7 +235,7 @@
       <span>
         <i class="icon-comments"></i>
         <span>
-          <a href="2016/09/24/delete-ldap-users-by-attribute/#comment">评论</a>
+          <a href="2016/09/24/delete-ldap-users-by-attribute/#comment">Comments</a>
         </span>
       </span>
     </div>
