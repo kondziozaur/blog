@@ -11,7 +11,7 @@
 
   
   <meta name="description" content="Backup &amp;amp; restore, OpenDJ 2.6.
-BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.oracle.com/cd/E19476-01/821-0508/res">
+Docs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.oracle.com/cd/E19476-01/821-0508/restore.ht">
   
 
   
@@ -51,11 +51,11 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/blog/">Home</a></li>
+        <li><a href="/blog/">主页</a></li>
       
-        <li><a href="/blog/archives">Archives</a></li>
+        <li><a href="/blog/archives">归档</a></li>
       
-        <li><a href="/blog/about">About</a></li>
+        <li><a href="/blog/about">关于</a></li>
       
     </ul>
   </nav>
@@ -87,9 +87,7 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.
     <div class="entry">
       
         <p>Backup &amp; restore, OpenDJ 2.6.</p>
-<h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><p>Docs:<br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/backup.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/backup.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/restore.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/restore.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html</a><br><a href="https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore" target="_blank" rel="external">https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore</a></p>
-<p>What are my backends?</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/list-backends</div></pre></td></tr></table></figure>
+<h3 id="Docs"><a href="#Docs" class="headerlink" title="Docs:"></a>Docs:</h3><p><a href="http://docs.oracle.com/cd/E19476-01/821-0508/backup.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/backup.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/restore.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/restore.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html</a><br><a href="https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore" target="_blank" rel="external">https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore</a></p>
 <h3 id="Off-line-backup"><a href="#Off-line-backup" class="headerlink" title="Off-line backup"></a>Off-line backup</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/backup --backUpAll --compress --backupDirectory /your_backups_path</div><div class="line">service opendj start</div></pre></td></tr></table></figure>
 <h3 id="On-line-backup"><a href="#On-line-backup" class="headerlink" title="On-line backup"></a>On-line backup</h3><h4 id="Setup-on-line-scheduled-backup"><a href="#Setup-on-line-scheduled-backup" class="headerlink" title="Setup on-line scheduled backup"></a>Setup on-line scheduled backup</h4><p>Twice a month full backup</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/backup --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --backUpAll --compress --backupDirectory /your_backups_path  --recurringTask <span class="string">"30 2 1,16 * *"</span> --completionNotify your@mail.com --errorNotify your@mail.com</div></pre></td></tr></table></figure>
@@ -106,6 +104,8 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.
 <p>Restore a backup<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot</div><div class="line">service opendj start</div></pre></td></tr></table></figure></p>
 <p>Restore a specific backup by ID<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --backupID 20160929062728Z</div><div class="line">service opendj start</div></pre></td></tr></table></figure></p>
 <p>Oh, did you restore as other system user than a directory user and got an empty userRoot when running directory?<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">chown -R opendj:opendj /opt/opendj</div></pre></td></tr></table></figure></p>
+<p>And BTW, what are my backends?</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/list-backends</div></pre></td></tr></table></figure>
 
       
     </div>
