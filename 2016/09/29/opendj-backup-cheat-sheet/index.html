@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OpenDJ Backup Cheat Sheet | Random Notes | IT ramblings &amp; snippets</title>
+  <title>OpenDJ Backup/Restore Cheat Sheet | Random Notes | IT ramblings &amp; snippets</title>
 
   
   <meta name="author" content="Konrad Piotrowski">
   
 
   
-  <meta name="description" content="This was useful for me. Hope it can be useful for you. Using OpenDJ 2.6.
-BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://do">
+  <meta name="description" content="Backup &amp;amp; restore, OpenDJ 2.6.
+BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://docs.oracle.com/cd/E19476-01/821-0508/res">
   
 
   
   
-  <meta name="keywords" content="OpenDJ,LDAP,recipes">
+  <meta name="keywords" content="OpenDJ,LDAP,recipes,backup">
   
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta property="og:title" content="OpenDJ Backup Cheat Sheet"/>
+  <meta property="og:title" content="OpenDJ Backup/Restore Cheat Sheet"/>
 
   <meta property="og:site_name" content="Random Notes"/>
 
@@ -66,7 +66,7 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://do">
 
   
     
-    <h3 class="article-title"><span>OpenDJ Backup Cheat Sheet</span></h3>
+    <h3 class="article-title"><span>OpenDJ Backup/Restore Cheat Sheet</span></h3>
     
   
 
@@ -86,25 +86,25 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://do">
   <div class="article-content">
     <div class="entry">
       
-        <p>This was useful for me. Hope it can be useful for you. Using OpenDJ 2.6.</p>
-<h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><p>Docs:<br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/backup.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/backup.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html</a><br><a href="https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore" target="_blank" rel="external">https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore</a></p>
+        <p>Backup &amp; restore, OpenDJ 2.6.</p>
+<h2 id="Backups"><a href="#Backups" class="headerlink" title="Backups"></a>Backups</h2><p>Docs:<br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/backup.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/backup.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0508/restore.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0508/restore.html</a><br><a href="http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html" target="_blank" rel="external">http://docs.oracle.com/cd/E19476-01/821-0506/managing-and-monitoring-scheduled-tasks.html</a><br><a href="https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore" target="_blank" rel="external">https://backstage.forgerock.com/#!/docs/opendj/2.6/admin-guide#chap-backup-restore</a></p>
 <p>What are my backends?</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/list-backends</div></pre></td></tr></table></figure>
 <h3 id="Off-line-backup"><a href="#Off-line-backup" class="headerlink" title="Off-line backup"></a>Off-line backup</h3><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/backup --backUpAll --compress --backupDirectory /your_backups_path</div><div class="line">service opendj start</div></pre></td></tr></table></figure>
 <h3 id="On-line-backup"><a href="#On-line-backup" class="headerlink" title="On-line backup"></a>On-line backup</h3><h4 id="Setup-on-line-scheduled-backup"><a href="#Setup-on-line-scheduled-backup" class="headerlink" title="Setup on-line scheduled backup"></a>Setup on-line scheduled backup</h4><p>Twice a month full backup</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/backup --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --backUpAll --compress --backupDirectory /opt/opendj-backups/daily-backup  --recurringTask <span class="string">"30 2 1,16 * *"</span> --completionNotify your@mail.com --errorNotify your@mail.com</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/backup --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --backUpAll --compress --backupDirectory /your_backups_path  --recurringTask <span class="string">"30 2 1,16 * *"</span> --completionNotify your@mail.com --errorNotify your@mail.com</div></pre></td></tr></table></figure>
 <p>Every night incremental backup</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/backup --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --backUpAll --compress --incremental --backupDirectory /opt/opendj-backups/daily-backup  --recurringTask <span class="string">"00 02 * * *"</span> --completionNotify your@mail.com --errorNotify your@mail.com</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/backup --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --backUpAll --compress --incremental --backupDirectory /your_backups_path  --recurringTask <span class="string">"00 02 * * *"</span> --completionNotify your@mail.com --errorNotify your@mail.com</div></pre></td></tr></table></figure>
 <p>Check scheduled backup</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --summary</div><div class="line"></div><div class="line">  ID                                                                 Type    Status</div><div class="line">  -------------------------------------------------------------------------------------------------</div><div class="line">  BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa                    Backup  Recurring</div><div class="line">  BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa-20161001023000000  Backup  Waiting on start time</div></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --info BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line"></div><div class="line">  Task Details</div><div class="line">  -------------------------------------------------------------------------</div><div class="line">  ID                        BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line">  Type                      Backup</div><div class="line">  Status                    Recurring</div><div class="line">  Scheduled Start Time      30 2 1,16 * *</div><div class="line">  Dependencies              None</div><div class="line">  Failed Dependency Action  None</div><div class="line">  Email Upon Completion     your@mail.com</div><div class="line">  Email Upon Error          your@mail.com</div><div class="line"></div><div class="line">  Backup Options</div><div class="line">  --------------------------------------------------</div><div class="line">  Backup All        <span class="literal">true</span></div><div class="line">  Backup Directory  /opt/opendj-backups/daily-backup</div><div class="line">  Compress          <span class="literal">true</span></div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --info BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line"></div><div class="line">  Task Details</div><div class="line">  -------------------------------------------------------------------------</div><div class="line">  ID                        BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div><div class="line">  Type                      Backup</div><div class="line">  Status                    Recurring</div><div class="line">  Scheduled Start Time      30 2 1,16 * *</div><div class="line">  Dependencies              None</div><div class="line">  Failed Dependency Action  None</div><div class="line">  Email Upon Completion     your@mail.com</div><div class="line">  Email Upon Error          your@mail.com</div><div class="line"></div><div class="line">  Backup Options</div><div class="line">  --------------------------------------------------</div><div class="line">  Backup All        <span class="literal">true</span></div><div class="line">  Backup Directory  /your_backups_path</div><div class="line">  Compress          <span class="literal">true</span></div></pre></td></tr></table></figure>
 <p>Cancel scheduled backup</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/manage-tasks --hostname localhost --port 4444 --bindDN <span class="string">"cn=Directory Manager"</span> --bindPassword <span class="string">"****"</span> --trustAll --no-prompt --info BackupTask-c24a1234-9acd-463a-aac2<span class="_">-f</span>3555a4646fa</div></pre></td></tr></table></figure>
 <h3 id="Restore-from-backup"><a href="#Restore-from-backup" class="headerlink" title="Restore from backup"></a>Restore from backup</h3><p>List backups of <em>userRoot</em> backend in <code>/your_backups_path</code> </p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --listBackups</div></pre></td></tr></table></figure>
 <p>Dry run a backup<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --dry-run</div></pre></td></tr></table></figure></p>
 <p>Restore a backup<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot</div><div class="line">service opendj start</div></pre></td></tr></table></figure></p>
-<p>Restore a specific backup by ID<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot  ---fds<span class="_">-f</span>-sd--ds </div><div class="line">service opendj start</div></pre></td></tr></table></figure></p>
+<p>Restore a specific backup by ID<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">service opendj stop</div><div class="line">/opt/opendj/bin/restore --backupDirectory /your_backups_path/userRoot --backupID 20160929062728Z</div><div class="line">service opendj start</div></pre></td></tr></table></figure></p>
 <p>Oh, did you restore as other system user than a directory user and got an empty userRoot when running directory?<br><figure class="highlight sh"><table><tr><td class="code"><pre><div class="line">chown -R opendj:opendj /opt/opendj</div></pre></td></tr></table></figure></p>
 
       
@@ -122,7 +122,7 @@ BackupsDocs:http://docs.oracle.com/cd/E19476-01/821-0508/backup.htmlhttp://do">
 
     <span class="post-tags">
       <i class="icon-tags"></i>
-        <a href="/blog/tags/OpenDJ/">OpenDJ</a><a href="/blog/tags/LDAP/">LDAP</a><a href="/blog/tags/recipes/">recipes</a>
+        <a href="/blog/tags/OpenDJ/">OpenDJ</a><a href="/blog/tags/LDAP/">LDAP</a><a href="/blog/tags/recipes/">recipes</a><a href="/blog/tags/backup/">backup</a>
     </span>
     
 
